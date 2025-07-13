@@ -2,9 +2,14 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
+}
 
-    /* Bootstrap light gray */
-    /* Light gray background for contrast */
+.headingColor {
+    color: #198754;
+}
+
+.reference {
+    font-size: 21px;
 }
 
 .header {
@@ -44,17 +49,19 @@ body {
     color: rgb(0, 0, 0);
 }
 
-/* About Section - Themed for InvestIQ AI */
+/* About Section */
 .about {
-    background-color: white;
     padding: 60px 0;
+}
+
+.container {
+    background-color: white;
 }
 
 .about .heading {
     font-size: 2.8rem;
     font-weight: bold;
     text-transform: uppercase;
-    color: #333;
     margin-bottom: 50px;
 }
 
@@ -136,4 +143,5 @@ section h2 {
 .card {
     border-radius: 10px;
     border: none;
+
 }
