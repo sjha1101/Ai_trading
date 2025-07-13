@@ -12,6 +12,11 @@ body {
     font-size: 21px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* navbar  */
 .header {
     height: 90px;
     width: 100%;
@@ -22,6 +27,7 @@ body {
 .usericon {
     height: 50px;
     width: 50px;
+    margin-right: 95px;
     background-color: green;
     border-radius: 50%;
 }
@@ -48,6 +54,8 @@ body {
     border-radius: 20px;
     color: rgb(0, 0, 0);
 }
+
+/* navbar end  */
 
 /* About Section */
 .about {
@@ -117,22 +125,18 @@ body {
     box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
 }
 
-
-/* Optional image enhancements */
 .about img {
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
+
+/* about end  */
 
 /* footer   */
 footer {
     text-align: center;
     margin-top: 30px;
     color: #777;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 section h2 {
