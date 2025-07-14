@@ -27,10 +27,22 @@ html {
 .usericon {
     height: 50px;
     width: 50px;
-    margin-right: 95px;
-    background-color: green;
+    margin-right: 104px;
     border-radius: 50%;
 }
+
+.custom-shadow-border {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+}
+
+.custom-shadow-border:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
 
 .navbar ul {
     display: flex;
@@ -75,7 +87,6 @@ html {
 
 .about .heading span {
     color: #198754;
-    /* Bootstrap's success green */
 }
 
 .about .container .row {
@@ -86,7 +97,6 @@ html {
     width: 100%;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0, 128, 0, 0.15);
-    /* green-toned shadow */
 }
 
 .about-heading {
