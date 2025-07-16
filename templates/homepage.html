@@ -125,54 +125,19 @@
                                 <th>AI Suggestion</th>
                             </tr>
                         </thead>
+                        <tbody id="stockTableBody">
+                            <!-- Inside your section or card -->
+                            <div class="chart-container mx-auto my-4" style="max-width: 500px;">
+                                <canvas id="investmentChart"></canvas>
+                            </div>
 
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- JS for Stocks -->
-    <script>
-        fetch('/api/stocks')
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.getElementById('stockTableBody');
-                tbody.innerHTML = "";
-                data.forEach(row => {
-                    const tr = document.createElement('tr');
-
-                    // 🔁 Replace this old code:
-                    // tr.innerHTML = `
-                    //     <td>${row.symbol}</td>
-                    //     <td>${row.company}</td>
-                    //     <td>₹${row.price}</td>
-                    //     <td class="${row.change.startsWith('+') ? 'text-success' : 'text-danger'}">${row.change}</td>
-                    //     <td><span class="badge ${getBadgeClass(row.suggestion)}">${row.suggestion}</span></td>
-                    // `;
-
-                    // ✅ With the updated code to show image:
-                    tr.innerHTML = `
-                <td><img src="${row.symbol_image}" alt="${row.symbol}" width="40" height="40"></td>
-                <td>${row.company}</td>
-                <td>₹${row.price}</td>
-                <td class="${row.change.startsWith('+') ? 'text-success' : 'text-danger'}">${row.change}</td>
-                <td><span class="badge ${getBadgeClass(row.suggestion)}">${row.suggestion}</span></td>
-            `;
-
-                    tbody.appendChild(tr);
-                });
-            });
-
-        function getBadgeClass(suggestion) {
-            switch (suggestion) {
-                case "Buy": return "badge-success";
-                case "Hold": return "badge-warning";
-                case "Avoid": return "badge-danger";
-                default: return "badge-secondary";
-            }
-        }
-    </script>
     <!-- End stocks -->
 
     <!-- Start Futures & Options (F&O) -->
