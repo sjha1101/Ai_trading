@@ -231,3 +231,18 @@ body {
 .forms .btn:hover {
   background: #146c43;
 }
+
+.btn-next {
+  width: 30%;
+  height: 90%;
+  color: #fff;
+  background: #198754;
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  float: right;
+  margin-right: 35px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}

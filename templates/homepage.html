@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page / Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/homepage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <!-- header -->
+    <header>
+        <div class="nabar">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-success rounded-bottom px-3">
+                <a class="navbar-brand text-white me-auto" href="#">InvestIQ AI</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="#stocks">Stocks</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="#fo">F&O</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="#mutualfunds">Mutual Funds</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white" href="#about">About Us</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-light mr-4" id="toggleMode">🌙</button>
+                        <div class="dropdown">
+                            <button class="btn btn-link p-0 border-0" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="../assets/images/usericon.png" alt="User Icon" class="usericon"
+                                    style="width: 40px; height: 40px; border-radius: 50%;">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Password Reset</a>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </nav>
+    </header>
+
+    <!-- end header  -->
+
+    <div class="container my-5">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card custom-shadow-border">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-wallet mr-2"></i> Account Summary
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Wallet Balance:</strong> ₹10,000</p>
+                        <p><strong>Investments:</strong> ₹7,000</p>
+                        <p><strong>Profit/Loss:</strong> <span class="text-success">+₹500</span></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Transactions Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card custom-shadow-border">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-history mr-2"></i> Recent Transactions
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled text-left">
+                            <li>📈 Bought 5 Shares of XYZ Corp @ ₹500</li>
+                            <li>📉 Sold 2 Shares of ABC Ltd @ ₹750</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment Estimator Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card custom-shadow-border">
+                    <div class="card-header bg-secondary text-white">
+                        <i class="fas fa-calculator mr-2"></i> Investment Estimator
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Amount:</strong> ₹10,000</p>
+                        <p><strong>Return (7% p.a.):</strong> ₹10,700</p>
+                        <p><small>1-Year Projection</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- stocks -->
+    <section id="stocks">
+        <h2 class="text-center text-success fs-4 mb-5"><span class="headingColor">STOCKS</span></h2>
+        <div class="container">
+            <div class="card shadow-sm p-3">
+                <p class="mt-3 reference">
+                    Track live stock prices, market trends, and get AI-based stock suggestions tailored to your
+                    portfolio preferences.
+                </p>
+                <div class="table-responsive mt-4">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead class="thead-dark fs-5">
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Company</th>
+                                <th>Price</th>
+                                <th>Change</th>
+                                <th>AI Suggestion</th>
+                            </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS for Stocks -->
+    <script>
+        fetch('/api/stocks')
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById('stockTableBody');
+                tbody.innerHTML = "";
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+
+                    // 🔁 Replace this old code:
+                    // tr.innerHTML = `
+                    //     <td>${row.symbol}</td>
+                    //     <td>${row.company}</td>
+                    //     <td>₹${row.price}</td>
+                    //     <td class="${row.change.startsWith('+') ? 'text-success' : 'text-danger'}">${row.change}</td>
+                    //     <td><span class="badge ${getBadgeClass(row.suggestion)}">${row.suggestion}</span></td>
+                    // `;
+
+                    // ✅ With the updated code to show image:
+                    tr.innerHTML = `
+                <td><img src="${row.symbol_image}" alt="${row.symbol}" width="40" height="40"></td>
+                <td>${row.company}</td>
+                <td>₹${row.price}</td>
+                <td class="${row.change.startsWith('+') ? 'text-success' : 'text-danger'}">${row.change}</td>
+                <td><span class="badge ${getBadgeClass(row.suggestion)}">${row.suggestion}</span></td>
+            `;
+
+                    tbody.appendChild(tr);
+                });
+            });
+
+        function getBadgeClass(suggestion) {
+            switch (suggestion) {
+                case "Buy": return "badge-success";
+                case "Hold": return "badge-warning";
+                case "Avoid": return "badge-danger";
+                default: return "badge-secondary";
+            }
+        }
+    </script>
+    <!-- End stocks -->
+
+    <!-- Start Futures & Options (F&O) -->
+    <section id="fo">
+        <h2 class="py-5 text-center text-success"><span class="headingColor">FUTURE & </span>
+            OPTIONS (F&O)</h2>
+        <div class="container">
+            <div class="card p-4 shadow-sm">
+                <p class="mb-4 reference">
+                    Monitor derivative contracts, option chain trends, and receive AI-powered trade
+                    strategies.
+                    Our dashboard helps you understand risk and reward before entering any F&O
+                    position.
+                </p>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Strike Price</th>
+                                <th>Expiry</th>
+                                <th>Premium</th>
+                                <th>AI Suggestion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>NIFTY</td>
+                                <td>Call</td>
+                                <td>22,000</td>
+                                <td>25-Jul-2025</td>
+                                <td>₹85</td>
+                                <td><span class="badge badge-success">Buy</span></td>
+                            </tr>
+                            <tr>
+                                <td>RELIANCE</td>
+                                <td>Put</td>
+                                <td>2,400</td>
+                                <td>25-Jul-2025</td>
+                                <td>₹52</td>
+                                <td><span class="badge badge-warning">Hold</span></td>
+                            </tr>
+                            <tr>
+                                <td>INFY</td>
+                                <td>Call</td>
+                                <td>1,600</td>
+                                <td>01-Aug-2025</td>
+                                <td>₹32</td>
+                                <td><span class="badge badge-danger">Avoid</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="mt-3 text-muted">
+                    <em>Suggestions based on market momentum and implied volatility. Live strategies
+                        coming
+                        soon.</em>
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- End Futures & Options (F&O) -->
+
+    <!-- Mutual Funds -->
+    <section id="mutualfunds">
+        <h2 class="text-center py-5 text-success"><span class="headingColor">Mutual</span> Funds
+        </h2>
+        <div class="container">
+            <div class="card p-4 shadow-sm">
+                <p class="mb-4 reference">
+                    Explore top-performing mutual funds across various categories. Get AI-powered
+                    suggestions
+                    based
+                    on
+                    your risk profile and investment goals.
+                </p>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Fund Name</th>
+                                <th>Category</th>
+                                <th>NAV (₹)</th>
+                                <th>1Y Return</th>
+                                <th>AI Suggestion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SBI Bluechip Fund</td>
+                                <td>Large Cap</td>
+                                <td>₹75.36</td>
+                                <td class="text-success">+12.5%</td>
+                                <td><span class="badge badge-success">Top Pick</span></td>
+                            </tr>
+                            <tr>
+                                <td>Axis Long Term Equity</td>
+                                <td>ELSS (Tax Saver)</td>
+                                <td>₹98.21</td>
+                                <td class="text-warning">+7.8%</td>
+                                <td><span class="badge badge-warning">Hold</span></td>
+                            </tr>
+                            <tr>
+                                <td>HDFC Midcap Opportunities</td>
+                                <td>Mid Cap</td>
+                                <td>₹144.55</td>
+                                <td class="text-success">+18.9%</td>
+                                <td><span class="badge badge-info">High Growth</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="mt-3 text-muted">
+                    <em>AI insights help you identify mutual funds aligned with your long-term
+                        financial
+                        goals.</em>
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- End Mutual Funds -->
+
+    <!-- about us -->
+    <section class="about" id="about">
+        <h1 class="heading text-center mb-5 text-success"><span class="headingColor">ABOUT</span> US
+        </h1>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 d-none d-md-block">
+                    <img src="../assets/images/About.png" alt="About Us" class="img-fluid rounded shadow" />
+                </div>
+                <div class="col-md-6">
+                    <p class="about-description">
+                        InvestIQ AI is an advanced investment platform designed to simplify the way
+                        you manage
+                        stocks,
+                        mutual funds, and F&O.
+                        Powered by cutting-edge AI technology, we offer personalized insights and
+                        smart
+                        recommendations
+                        to help you make confident investment decisions. Our goal is to empower
+                        investors by
+                        providing
+                        accurate data, intuitive tools, and a user-friendly experience.
+                        Whether you're a beginner or an experienced trader, InvestIQ AI is here to
+                        make
+                        investing
+                        smarter, faster, and more accessible for everyone.
+                        We provide real-time market analysis, AI-driven portfolio tracking, and
+                        intelligent
+                        alerts
+                        to
+                        help you stay ahead. Our platform also offers educational tools for
+                        improving your
+                        financial
+                        knowledge and decision-making skills.
+                        With a secure, cloud-based infrastructure and a clean, modern interface,
+                        InvestIQ AI
+                        delivers a
+                        seamless and trustworthy investment experience. Join us and take control of
+                        your
+                        financial
+                        future with confidence.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about us end-->
+
+    <!-- footer  -->
+    <footer>
+        <p>© 2025 Share Market App</p>
+    </footer>
+    <!-- End footer  -->
+
+    <script>
+        document.getElementById("toggleMode").onclick = () => {
+            document.body.classList.toggle("bg-dark");
+            document.body.classList.toggle("text-black");
+        };
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

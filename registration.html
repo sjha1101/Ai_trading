@@ -40,45 +40,90 @@
                     <div class="title heading">
                         <span>Sign </span>up
                     </div>
-                    <form action="../login form/authcode.php" method="post">
+                    <form action="#" method="post">
                         <div class="input-boxes">
-                            <div class="input-box">
-                                <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Enter your name" required name="name">
-                            </div>
-                            <div class="input-box">
-                                <i class="fas fa-envelope"></i>
-                                <input type="text" placeholder="Enter your email" required name="email">
-                            </div>
-                            <div class="input-box">
-                                <i class="fas fa-phone"></i>
-                                <input type="text" placeholder="Enter your mobile number" required name="contact">
-                            </div>
-                            <div class="input-box">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Enter your password" required name="password">
-                            </div>
-                            <div class="input-box">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="confirm password" required name="cpassword">
-                            </div>
-                            <div class="input-box">
-                                <button type="submit" name="register_btn" class="btn btn-primary">Register</button>
+                            <div class="step">
+                                <div class="input-box">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" placeholder="Enter your name" required name="username">
+                                </div>
+                                <div class="input-box">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" placeholder="Enter your email" required name="email">
+                                </div>
+                                <button type="button" class="btn-primary btn-next">Next</button>
                             </div>
 
-                        </div>
-                        <div class="text sign-up-text">Already have an account? <a href="./login.php">Login now</a>
-                        </div>
+                            <div class="step" style="display: none;">
+                                <div class="input-box">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="text" placeholder="Enter your mobile number" required name="phone">
+                                </div>
+                                <div class="input-box">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <input type="date" placeholder="Date of Birth" required name="dob">
+                                </div>
+                                <button type="button" class="btn-primary btn-next">Next</button>
+                            </div>
+
+                            <div class="step" style="display: none;">
+                                <div class="input-box">
+                                    <i class="fas fa-id-card"></i>
+                                    <input type="text" placeholder="PAN / Tax ID Number" required name="pan">
+                                </div>
+                                <div class="input-box">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <input type="text" placeholder="Country / Address" required name="address">
+                                </div>
+                                <button type="button" class="btn-primary btn-next">Next</button>
+                            </div>
+                            <div class="step" style="display: none;">
+                                <div class="input-box">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Enter your password" required name="password">
+                                </div>
+                                <div class="input-box">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" placeholder="Confirm password" required name="cpassword">
+                                </div>
+                                <div class="input-box">
+                                    <button type="submit" name="register_btn" class="btn btn-primary">Register</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="text sign-up-text">
+                                Already have an account? <a href="./login.php">Login now</a>
+                            </div>
+                    </form>
+                    <br>
+
                 </div>
-                </form>
-
             </div>
+            </form>
+
         </div>
+    </div>
 
     </div>
 
 
     </div>
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const nextBtns = document.querySelectorAll('.btn-next');
+        let currentStep = 0;
+
+        nextBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                steps[currentStep].style.display = "none";
+                currentStep++;
+                if (currentStep < steps.length) {
+                    steps[currentStep].style.display = "block";
+                }
+            });
+        });
+    </script>
+
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js">
     </script>
 
