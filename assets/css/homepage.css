@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    padding: 0;
+    padding-top: 80px;
     background-color: #f5f5f5;
 }
 
@@ -24,11 +24,19 @@ html {
     border-bottom-right-radius: 30px;
 }
 
+.navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1030;
+}
+
+#dropdownMenuButton:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .usericon {
-    height: 50px;
-    width: 50px;
+    cursor: pointer;
     margin-right: 104px;
-    border-radius: 50%;
 }
 
 .custom-shadow-border {
