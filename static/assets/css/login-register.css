@@ -232,6 +232,20 @@ body {
   background: #146c43;
 }
 
+.btn-previous {
+  width: 30%;
+  height: 90%;
+  color: hsl(0, 0%, 100%);
+  background: #5c0d03;
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  margin-right: 35px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
 .btn-next {
   width: 30%;
   height: 90%;
@@ -245,4 +259,23 @@ body {
   font-size: 22px;
   cursor: pointer;
   transition: all 0.4s ease;
+}
+
+.previous-btn {
+  width: 40%;
+  height: 90%;
+  color: hsl(0, 0%, 100%);
+  background: #5c0d03;
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  margin-right: 35px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.step-error {
+  color: red;
+  font-weight: bold;
 }

@@ -1,83 +1,91 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, session
+from werkzeug.security import generate_password_hash
 import mysql.connector
+import re
+import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Required for sessions! Use a strong secret key in production.
+app.secret_key = os.urandom(24)
 
-# MySQL connection details
+# Database config
 db_config = {
     'host': 'localhost',
-    'user': 'root',     
-    'password': '', 
+    'user': 'root',
+    'password': '',
     'database': 'aitrading'
 }
 
 def get_db_connection():
     return mysql.connector.connect(**db_config)
 
-# @app.route('/')
-# def home():
-#     if 'username' in session:
-#         return redirect('/dashboard')
-#     return render_template('login.html')
+@app.route('/', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        phone_number = request.form.get('phone_number')
+        date_of_birth = request.form.get('date_of_birth')
+        pan_tax_id = request.form.get('pan_tax_id')
+        country = request.form.get('country')
+        password = request.form.get('password')
+        confirm_password = request.form.get('cpassword')
 
-# @app.route('/login', methods=['POST'])
-# def login():
-#     username = request.form['username']
-#     password = request.form['password']
+        # ✅ Required fields check
+        if not username or not email or not password:
+            flash("Username, Email, and Password are required!", "danger")
+            return redirect(url_for('register'))
 
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM reg WHERE username = %s AND password = %s", (username, password))
-#     user = cursor.fetchone()
-#     conn.close()
+        # ✅ Password match check
+        if password != confirm_password:
+            flash("Passwords do not match!", "danger")
+            return redirect(url_for('register'))
 
-#     if user:
-#         session['username'] = username
-#         return redirect('/dashboard')
-#     else:
-#         return "Invalid login. <a href='/'>Try again</a>"
+        # ✅ Email validation
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            flash("Invalid email format!", "danger")
+            return redirect(url_for('register'))
 
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if request.method == 'POST':
-#         username = request.form['username']
-#         password = request.form['password']
+        # ✅ Phone number validation (10 digits)
+        if not phone_number.isdigit() or len(phone_number) != 10:
+            flash("Phone number must be 10 digits!", "danger")
+            return redirect(url_for('register'))
 
-#         conn = get_db_connection()
-#         cursor = conn.cursor()
-#         try:
-#             cursor.execute("INSERT INTO reg (username, password) VALUES (%s, %s)", (username, password))
-#             conn.commit()
-#             return redirect('/')
-#         except mysql.connector.IntegrityError:
-#             return "Username already exists. <a href='/register'>Try again</a>"
-#         finally:
-#             conn.close()
+        # ✅ Password hashing
+        hashed_password = generate_password_hash(password)
 
-#     return render_template('register.html')
+        # ✅ Insert into database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                INSERT INTO users (username, email, phone_number, date_of_birth, pan_tax_id, country, password)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (username, email, phone_number, date_of_birth, pan_tax_id, country, hashed_password))
+            conn.commit()
+            flash("Registration successful! Please log in.", "success")
+            return redirect(url_for('show_stocks'))
+        except mysql.connector.IntegrityError:
+            flash("Username or Email already exists.", "danger")
+            return redirect(url_for('register'))
+        finally:
+            conn.close()
 
-# @app.route('/dashboard')
-# def dashboard():
-#     if 'username' not in session:
-#         return redirect('/')
-#     return render_template('success.html', username=session['username'])
+    return render_template('registration.html')
 
 @app.route('/homepage')
 def show_stocks():
     conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)  # dictionary=True gives column names
+    cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM stocks ORDER BY price DESC")
     stocks = cursor.fetchall()
     conn.close()
-    # return render_template('stocks.html', stocks=stocks)
     return render_template('homepage.html', stocks=stocks)
 
 @app.route('/logout')
 def logout():
-    
     session.pop('username', None)
-    return redirect('/')
+    flash("Logged out successfully.", "info")
+    return redirect(url_for('register'))
 
 if __name__ == '__main__':
     app.run(debug=True)
