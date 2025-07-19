@@ -1,0 +1,21 @@
+15 script 2 year historcial data 
+find the best pattern to ai to get the profit
+example : to check last 5 month 
+indicator: kab vo h igh hoti hai kab low hota hai (moving average proceesor)
+20 green line 30 days red 
+20 to 30 days ke data data 
+candle ?
+high candle & low candle 
+Candlesticks are a visual representation of price movement for a specific period in financial markets (stocks, forex, crypto, etc.).
+They are used in technical analysis to understand market sentiment.
+What Does a Candlestick Show?
+Each candlestick represents 4 key values for a time period (like 1 day, 1 hour, etc.):
+
+Open – The price at the beginning of the period
+
+Close – The price at the end of the period
+
+High – The highest price during the period
+
+Low – The lowest price during the period
+

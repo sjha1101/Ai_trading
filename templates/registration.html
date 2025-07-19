@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../login form/css/style.css">
     <link rel="icon" href="../Images/LOGO.png" type="image/x-icon">
     <title>Registration</title>
 
@@ -17,10 +16,12 @@
         crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/assets/css/login-register.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
+
 
     <div class="container">
         <div class="cover">
@@ -41,8 +42,10 @@
                     </div>
                     <div id="error-message" style="color:red; text-align:center; margin-bottom:10px;"></div>
 
-                    <form action="{{ url_for('register') }}" method="post">
+                    <form action="{{ url_for('register') }}" method="post" id="regForm">
                         <div class="input-boxes">
+
+                            <!-- STEP 1 -->
                             <div class="step">
                                 <div class="input-box">
                                     <i class="fas fa-user"></i>
@@ -53,75 +56,98 @@
                                     <i class="fas fa-envelope"></i>
                                     <input type="email" id="email" name="email" placeholder="Enter your email" required>
                                 </div>
-
                                 <div class="step-error text-danger small mt-2"></div>
 
                                 <div class="mt-3 d-flex justify-content-end">
                                     <button type="button" class="btn-next" data-step="0">Next</button>
+                                </div> <br>
+                                <div class="text sign-up-text">Don't have an account? <a href="{{ url_for('/') }}">Login
+                                        now</a>
                                 </div>
-                            </div>
 
-                            <div class="step" style="display: none;">
-                                <div class="input-box">
-                                    <i class="fas fa-phone"></i>
-                                    <input type="text" placeholder="Enter your mobile number" name="phone_number"
-                                        required>
-                                </div>
-                                <div class="input-box">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <input type="date" name="date_of_birth" placeholder="Date of Birth" required>
-                                </div>
-                                <div class="step-error text-danger small mt-2"></div>
+                                <!-- STEP 2 -->
+                                <div class="step" style="display:none;">
+                                    <div class="input-box">
+                                        <i class="fas fa-phone"></i>
+                                        <input type="text" id="phone_number" name="phone_number"
+                                            placeholder="Enter your mobile number" required>
+                                    </div>
+                                    <div class="input-box">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <input type="date" id="date_of_birth" name="date_of_birth" required>
+                                    </div>
+                                    <div class="step-error text-danger small mt-2"></div>
+                                    <div class="mt-3 d-flex justify-content-between">
+                                        <button type="button" class="btn-previous">Previous</button>
+                                        <button type="button" class="btn-next">Next</button>
+                                    </div>
+                                    <br>
+                                    <div class="text sign-up-text">Don't have an account? <a
+                                            href="{{ url_for('/') }}">Login now</a>
+                                    </div>
 
-                                <button type="button" class="btn-primary btn-previous">Previous</button>
+                                    <!-- STEP 3 -->
+                                    <div class="step" style="display:none;">
+                                        <div class="input-box">
+                                            <i class="fas fa-id-card"></i>
+                                            <input type="text" id="pan_tax_id" name="pan_tax_id"
+                                                placeholder="PAN / Tax ID Number" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <input type="text" id="country" name="country" placeholder="Country"
+                                                required>
+                                        </div>
+                                        <div class="step-error text-danger small mt-2"></div>
+                                        <div class="mt-3 d-flex justify-content-between">
+                                            <button type="button" class="btn-previous">Previous</button>
+                                            <button type="button" class="btn-next">Next</button>
+                                        </div>
+                                        <br>
+                                        <div class="text sign-up-text">Don't have an account? <a
+                                                href="{{ url_for('/') }}">Login now</a>
+                                        </div>
+                                    </div>
 
-                                <button type="button" class="btn-primary btn-next">Next</button>
-                            </div>
-                            <div class="step" style="display: none;">
-                                <div class="input-box">
-                                    <i class="fas fa-id-card"></i>
-                                    <input type="text" name="pan_tax_id" placeholder="PAN / Tax ID Number" required>
+                                    <!-- STEP 4 -->
+                                    <div class="step" style="display:none;">
+                                        <div class="input-box">
+                                            <i class="fas fa-lock"></i>
+                                            <input type="password" id="password" name="password"
+                                                placeholder="Enter your password" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <i class="fas fa-lock"></i>
+                                            <input type="password" id="cpassword" name="cpassword"
+                                                placeholder="Confirm password" required>
+                                        </div>
+                                        <div class="step-error text-danger small mt-2"></div>
+                                        <div class="mt-3 d-flex justify-content-between">
+                                            <button type="button" class="btn-previous">Previous</button>
+                                            <button type="submit" class="btn btn-primary">Register</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="text sign-up-text">Don't have an account? <a
+                                            href="{{ url_for('/') }}">Login now</a>
+                                    </div>
                                 </div>
-                                <div class="input-box">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <input type="text" name="country" placeholder="Country" required>
-                                </div>
-                                <div class="step-error text-danger small mt-2"></div>
-
-                                <button type="button" class="btn-primary btn-previous">Previous</button>
-
-                                <button type="button" class="btn-primary btn-next">Next</button>
-                            </div>
-                            <div class="step" style="display: none;">
-                                <div class="input-box">
-                                    <i class="fas fa-lock"></i>
-                                    <input type="password" placeholder="Enter your password" required name="password">
-                                </div>
-                                <div class="input-box">
-                                    <i class="fas fa-lock"></i>
-                                    <input type="password" placeholder="Confirm password" required name="cpassword">
-                                </div>
-                                <div class="step-error text-danger small mt-2"></div>
-                                <div class="input-box">
-                                    <button type="button" class="previous-btn btn-previous">Previous</button>
-                                    <button type=" submit" name="register_btn"
-                                        class="btn-next btn-primary">Register</button>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="text sign-up-text">
-                            Already have an account? <a href="./login.html">Login now</a>
-                        </div>
                     </form>
-                    <br>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <div style="width:90%; margin:auto;">
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" style="color: red; font-weight:bold;">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
                 </div>
             </div>
-            </form>
-        </div>
-    </div>
 
-    </div>
+        </div>
     </div>
 
     <!-- error handling  -->
@@ -132,53 +158,104 @@
             const prevBtns = document.querySelectorAll('.btn-previous');
             let currentStep = 0;
 
+            steps.forEach(step => step.style.display = "none");
             steps[currentStep].style.display = "block";
 
             nextBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (validateStep(currentStep)) {
-                        steps[currentStep].style.display = "none";
-                        currentStep++;
-                        if (currentStep < steps.length) {
-                            steps[currentStep].style.display = "block";
-                        }
+                        goToStep(currentStep + 1);
                     }
                 });
             });
 
             prevBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    steps[currentStep].style.display = "none";
-                    currentStep--;
-                    if (currentStep >= 0) {
-                        steps[currentStep].style.display = "block";
-                    }
+                    goToStep(currentStep - 1);
                 });
             });
 
+            function goToStep(stepIndex) {
+                if (stepIndex < 0 || stepIndex >= steps.length) return;
+                steps[currentStep].style.display = "none";
+                currentStep = stepIndex;
+                steps[currentStep].style.display = "block";
+            }
+
             function validateStep(step) {
-                if (step === 0) {
-                    let name = document.getElementById("username").value.trim();
-                    let email = document.getElementById("email").value.trim();
-                    let errorDiv = steps[step].querySelector('.step-error');
+                const stepEl = steps[step];
+                const errorDiv = stepEl.querySelector('.step-error');
+                errorDiv.textContent = "";
 
-                    errorDiv.innerHTML = "";
+                switch (step) {
+                    case 0: // Name + Email
+                        const name = document.getElementById("username").value.trim();
+                        const email = document.getElementById("email").value.trim();
+                        if (!name) {
+                            errorDiv.textContent = "Name is required.";
+                            return false;
+                        }
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(email)) {
+                            errorDiv.textContent = "Enter a valid email address.";
+                            return false;
+                        }
+                        return true;
 
-                    if (name === "") {
-                        errorDiv.innerHTML = "Name is required.";
-                        return false;
-                    }
-                    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(email)) {
-                        errorDiv.innerHTML = "Please enter a valid email address.";
-                        return false;
-                    }
+                    case 1: // Phone + DOB
+                        const phone = document.getElementById("phone_number").value.trim();
+                        const dob = document.getElementById("date_of_birth").value;
+                        const phonePattern = /^[6-9]\d{9}$/;
+                        if (!phonePattern.test(phone)) {
+                            errorDiv.textContent = "Enter a valid 10-digit mobile number starting with 6-9.";
+                            return false;
+                        }
+                        if (!dob || !is18Plus(dob)) {
+                            errorDiv.textContent = "You must be at least 18 years old.";
+                            return false;
+                        }
+                        return true;
+
+                    case 2: // PAN + Country
+                        const pan = document.getElementById("pan_tax_id").value.trim().toUpperCase();
+                        const country = document.getElementById("country").value.trim();
+                        const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+                        if (!panPattern.test(pan)) {
+                            errorDiv.textContent = "Enter a valid PAN (e.g., ABCDE1234F).";
+                            return false;
+                        }
+                        if (!country) {
+                            errorDiv.textContent = "Country is required.";
+                            return false;
+                        }
+                        return true;
+
+                    case 3: // Password + Confirm
+                        const pass = document.getElementById("password").value;
+                        const cpass = document.getElementById("cpassword").value;
+                        if (pass.length < 8) {
+                            errorDiv.textContent = "Password must be at least 8 characters.";
+                            return false;
+                        }
+                        if (pass !== cpass) {
+                            errorDiv.textContent = "Passwords do not match.";
+                            return false;
+                        }
+                        return true;
                 }
-                return true;
+            }
+
+            function is18Plus(dobStr) {
+                const dob = new Date(dobStr);
+                if (isNaN(dob)) return false;
+                const today = new Date();
+                let age = today.getFullYear() - dob.getFullYear();
+                const m = today.getMonth() - dob.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+                return age >= 18;
             }
         });
     </script>
-
 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js">
     </script>

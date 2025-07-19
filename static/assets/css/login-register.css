@@ -76,6 +76,11 @@ body {
   width: 100%;
 }
 
+.chart {
+  float: inline-end;
+
+}
+
 .container .cover::before,
 .container .cover::after {
   content: '';
@@ -277,5 +282,6 @@ body {
 
 .step-error {
   color: red;
-  font-weight: bold;
 }
+
+/* css for reset password */

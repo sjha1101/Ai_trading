@@ -13,11 +13,13 @@ body {
 }
 
 .chart-container {
-    width: 100%;
+    width: 80%;
     max-width: 1000px;
-    height: 400px;
-    /* Increased chart height */
     margin: auto;
+}
+
+.chart-container h1 {
+    text-align: center;
 }
 
 html {
@@ -44,7 +46,23 @@ html {
 
 .usericon {
     cursor: pointer;
-    margin-right: 104px;
+    margin-right: 100px;
+}
+
+.theme {
+    margin-right: 10px;
+}
+
+.logo {
+    margin-left: 580px;
+    align-items: center;
+    font-size: 35px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dropdown-end {
+    margin-left: 400px;
 }
 
 .custom-shadow-border {
@@ -59,39 +77,11 @@ html {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
-
-.navbar ul {
-    display: flex;
-}
-
-.navbar li {
-    text-decoration: none;
-    list-style: none;
-}
-
-.navbar li a {
-    color: white;
-    text-decoration: none;
-    padding: 15px;
-    font-size: 22px;
-}
-
-.navbar li a:hover {
-    text-decoration: none;
-    background-color: green;
-    border-radius: 20px;
-    color: rgb(0, 0, 0);
-}
-
 /* navbar end  */
 
 /* About Section */
 .about {
     padding: 60px 0;
-}
-
-.container {
-    background-color: white;
 }
 
 .about .heading {
